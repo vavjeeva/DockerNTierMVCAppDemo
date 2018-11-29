@@ -1,0 +1,31 @@
+version: '3'
+services:
+  docker_ntierdemo_app:    
+    image: jeevasubburaj/dockerntierdemo_app:v1
+    build:
+      context: ./NtierMvc/bin/Release/Publish          
+    depends_on:
+      - docker_ntierdemo_db
+    hostname: ${APP_UUID}
+    container_name: ${APP_UUID}
+    networks: 
+      docker_ntierdemo-net:        
+        ipv4_address: 172.16.238.20              
+  docker_ntierdemo_db:
+    image: sagitec/dockerntierdemo_db:v1   
+    build:      
+      context: ./Database 
+    ports: 
+      - "14333:1433"
+    env_file: db_dev.env   
+    hostname: ${DB_UUID}
+    container_name: ${DB_UUID}             
+    networks: 
+      docker_ntierdemo-net:             
+        ipv4_address: 172.16.238.21
+networks:
+  docker_ntierdemo-net:       
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
