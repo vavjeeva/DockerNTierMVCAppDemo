@@ -12,7 +12,7 @@ services:
       docker_ntierdemo-net:        
         ipv4_address: 172.16.238.20              
   docker_ntierdemo_db:
-    image: sagitec/dockerntierdemo_db:v1   
+    image: jeevasubburaj/dockerntierdemo_db:v1   
     build:      
       context: ./Database 
     ports: 
